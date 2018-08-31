@@ -1,0 +1,26 @@
+{
+  "name": "markdown",
+  "version": "1.0.0",
+  "description": "markdown",
+  "main": "index.js",
+  "scripts": {
+    "test": "jest --coverage"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/alppacat/cdmx-2018-01-FE-markdown.git"
+  },
+  "keywords": [
+    "node",
+    "javascript"
+  ],
+  "author": "Tzu Pratts",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/alppacat/cdmx-2018-01-FE-markdown/issues"
+  },
+  "homepage": "https://github.com/alppacat/cdmx-2018-01-FE-markdown#readme",
+  "devDependencies": {
+    "jest": "^23.5.0"
+  }
+}
