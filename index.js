@@ -3,6 +3,7 @@ const chalk = require('chalk');
 const fileDir = require('path');
 const marked = require('marked');
 const figlet = require('figlet');
+const fetch = require('node-fetch');
 const log = console.log;
 
 const pathUndefined = () => {
@@ -48,9 +49,21 @@ const parseMarked = (content) => {
     arrLinks.push(links);
     // log(chalk.bgGreen('Link: ') + chalk.magenta(links.split('href=')));
   });
+  fetchLinks(arrLinks, arrText);
+  // for (let i = 0; i < arrLinks.length; i++) {
+  //   log(chalk.bgGreen('Link: ') + chalk.magenta(arrLinks[i].split('href=')) + '\n' + chalk.bgYellow('Text: ') + chalk.magenta(arrText[i].split('</a>')));
+  // }
+};
 
+const fetchLinks = (arrLinks, arrText) => {
+  // Limpiando urls para hacer el fetch correctamente
+ 
   for (let i = 0; i < arrLinks.length; i++) {
-    log(chalk.bgGreen('Link: ') + chalk.magenta(arrLinks[i].split('href=')) + '\n' + chalk.bgYellow('Text: ') + chalk.magenta(arrText[i].split('</a>')));
+    let link = arrLinks[i].slice(0, -1).substr(6);
+    fetch(link)
+      .then(res => {
+        log(res.status);
+      });
   }
 };
 

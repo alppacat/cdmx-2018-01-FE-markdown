@@ -29,6 +29,7 @@
   "dependencies": {
     "chalk": "^2.4.1",
     "figlet": "^1.2.0",
-    "marked": "^0.5.0"
+    "marked": "^0.5.0",
+    "node-fetch": "^2.2.0"
   }
 }
