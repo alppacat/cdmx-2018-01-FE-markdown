@@ -38,16 +38,20 @@ const parseMarked = (content) => {
   const regExpText = />[^<]*<[ ]*\/a[ ]*>/g;
   const links = toHtml.match(regExp);
   const textLinks = toHtml.match(regExpText);
-  // let arr = [];
+  let arrLinks = [];
+  let arrText = [];
 
-  // textLinks.forEach((url) = (textLinks) => {
-  //   arr.push(textLinks);
-  // });
-  links.forEach((urls) = (links) => {
-    // arr.push(links)
-    log(chalk.bgGreen('Link: ') + chalk.magenta(links.split('href=')));
+  textLinks.forEach((url) = (textLinks) => {
+    arrText.push(textLinks);
   });
-  // console.log(arr)
+  links.forEach((urls) = (links) => {
+    arrLinks.push(links);
+    // log(chalk.bgGreen('Link: ') + chalk.magenta(links.split('href=')));
+  });
+
+  for (let i = 0; i < arrLinks.length; i++) {
+    log(chalk.bgGreen('Link: ') + chalk.magenta(arrLinks[i].split('href=')) + '\n' + chalk.bgYellow('Text: ') + chalk.magenta(arrText[i].split('</a>')));
+  }
 };
 
 pathUndefined();
