@@ -60,9 +60,11 @@ const fetchLinks = (arrLinks, arrText) => {
  
   for (let i = 0; i < arrLinks.length; i++) {
     let link = arrLinks[i].slice(0, -1).substr(6);
+    let text = arrText[i].slice(0,-4).substr(1);
+    let statusLink = [];
     fetch(link)
       .then(res => {
-        log(res.status);
+        log(chalk.bgGreen('Link: ') + chalk.magenta(link) + '  ' + chalk.blue(res.statusText) + '\n' + chalk.bgYellow('Text: ') + text);
       });
   }
 };
