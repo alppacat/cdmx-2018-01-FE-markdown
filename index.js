@@ -10,7 +10,8 @@ const pathUndefined = () => {
   let path;
   if (process.argv[2]) {
     path = process.argv[2];
-    mdLinks(path);
+    // mdLinks(path);
+    options(path);
   } else {
     figlet('MarkdownLinks', (err, data) => {
       if (err) {
@@ -18,22 +19,23 @@ const pathUndefined = () => {
         console.dir(err);
       }
       log(chalk.magenta(data));
+      log('    1.- Write down the path of your desired file \n    2.- Add a following option: --validate & --stats ');
     });
   }
 };
 
-const mdLinks = (path) => {
+const mdLinks = (path, options) => {
   const dir = fileDir.extname(path);
   fs.readFile(path, 'utf8', (err, content) => {
     if (dir !== '.md') {
       log(chalk.bgRed('Not an .md File', err));
     } else {
-      parseMarked(content);
+      parseMarked(content, options);
     }
   });
 };
 
-const parseMarked = (content) => {
+const parseMarked = (content, options) => {
   const toHtml = marked(content);
   const regExp = /href="(.*?)"/g;
   const regExpText = />[^<]*<[ ]*\/a[ ]*>/g;
@@ -47,26 +49,44 @@ const parseMarked = (content) => {
   });
   links.forEach((urls) = (links) => {
     arrLinks.push(links);
-    // log(chalk.bgGreen('Link: ') + chalk.magenta(links.split('href=')));
   });
-  fetchLinks(arrLinks, arrText);
-  // for (let i = 0; i < arrLinks.length; i++) {
-  //   log(chalk.bgGreen('Link: ') + chalk.magenta(arrLinks[i].split('href=')) + '\n' + chalk.bgYellow('Text: ') + chalk.magenta(arrText[i].split('</a>')));
-  // }
+  fetchLinks(arrLinks, arrText, options);
 };
 
-const fetchLinks = (arrLinks, arrText) => {
+const fetchLinks = (arrLinks, arrText, options) => {
   // Limpiando urls para hacer el fetch correctamente
  
   for (let i = 0; i < arrLinks.length; i++) {
     let link = arrLinks[i].slice(0, -1).substr(6);
-    let text = arrText[i].slice(0,-4).substr(1);
-    let statusLink = [];
-    fetch(link)
-      .then(res => {
-        log(chalk.bgGreen('Link: ') + chalk.magenta(link) + '  ' + chalk.blue(res.statusText) + '\n' + chalk.bgYellow('Text: ') + text);
-      });
+    let text = arrText[i].slice(0, -4).substr(1);
+    if (options.validate === false) {
+      log(chalk.bgGreen('Link: ') + chalk.magenta(link) + '\n' + chalk.bgYellow('Text: ') + text);
+    } else if (options.validate) {
+      fetch(link)
+        .then(res => {
+          log(chalk.bgGreen('Link: ') + chalk.magenta(link) + '  ' + chalk.blue(res.statusText) + '\n' + chalk.bgYellow('Text: ') + text);
+        });
+    }
   }
+};
+
+const options = (path) => {
+  let options = {
+    validate: false,
+    stats: false,
+  };
+
+  if (process.argv[3] === '--validate') {
+    options.validate = true;
+  } else if (process.argv[3] === '--stats') {
+    options.stats = true;
+  } else if (process.argv[3] === '--validate' && process.argv[4] === '--stats') {
+    options.validate = true;
+    options.stats = true;
+  } else {
+    log('Options: --validate & --stats');
+  }
+  mdLinks(path, options);
 };
 
 pathUndefined();
