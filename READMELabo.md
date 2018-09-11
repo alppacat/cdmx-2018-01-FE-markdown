@@ -370,27 +370,27 @@ Que sea instalable directamente desde el repositorio de Github
 
 ### `README.md`
 
-- [ ] Un board con el backlog para la implementación de la librería.
+- [x] Un board con el backlog para la implementación de la librería.
 - [ ] Documentación técnica de la librería.
 - [ ] Guía de uso e instalación de la librería
 
 ### API `mdLinks(path, opts)`
 
-- [ ] El módulo exporta una función con la interfaz (API) esperada.
-- [ ] Implementa soporte para archivo individual
+- [x] El módulo exporta una función con la interfaz (API) esperada.
+- [x] Implementa soporte para archivo individual
 - [ ] Implementa soporte para directorios
-- [ ] Implementa `options.validate`
+- [x] Implementa `options.validate`
 
 ### CLI
 
-- [ ] Expone ejecutable `md-links` en el path (configurado en `package.json`)
-- [ ] Se ejecuta sin errores / output esperado
-- [ ] Implementa `--validate`
+- [x] Expone ejecutable `md-links` en el path (configurado en `package.json`)
+- [x] Se ejecuta sin errores / output esperado
+- [x] Implementa `--validate`
 - [ ] Implementa `--stats`
 - [ ] Implementa `--validate --stats`
 
 ### Pruebas / tests
 
-- [ ] Pruebas unitarias cubren un mínimo del 70% de statements, functions,
+- [x] Pruebas unitarias cubren un mínimo del 70% de statements, functions,
       lines, y branches.
 - [ ] Pasa tests (y linters) (`npm test`).
